@@ -1,0 +1,13 @@
+Effect,Tag / function,Action
+E01,XY-101,De-energise: XV-101 closes in 0.7 s
+E02,XY-102,De-energise: stator vanes close in 3 s
+E03,PY-101,Vane output forced to 0 %
+E04,CB-101-TRP,"Trip pulse, sequential (after ZSC-101 and reverse power)"
+E05,PY-201,"Step to feedforward position, track 2 s, release to PIC-100"
+E06,PY-201,Then freeze output in manual
+E07,PY-201,Output forced to 100 %
+E08,XY-201A,De-energise: PV-201A fully open in 1.5 s
+E09,XY-201B,De-energise: PV-201B fully open in 1.5 s
+E10,FB_TRT_Sequence,Sequence to TRIP (reset required)
+E11,FB_TRT_Sequence,Sequence to UNLOADING
+E12,HMI,Alarm + first-out indication

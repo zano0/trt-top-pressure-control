@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TRT top-pressure control – $name</title>
+<style>
+  @font-face { font-family: "Inter"; src: url("fonts/InterVariable.woff2") format("woff2"); font-weight: 100 900; }
+  @page { size: A4 landscape; margin: 0; }
+  :root { --navy: #1f2a44; --gray: #5a6b85; --light: #8a94a6; --band: #eef0f4; --line: #d7dbe3; --acc: #d9822b; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: "Inter", sans-serif; color: var(--navy); font-size: 11pt; line-height: 1.45;
+         -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { width: 297mm; height: 210mm; padding: 16mm 20mm 14mm 20mm; position: relative; overflow: hidden;
+          page-break-after: always; break-after: page; background: #fff; }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+  .kicker { font-size: 8.5pt; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--acc); margin: 0 0 3mm; }
+  h1, h2, p, .num-l { text-wrap: pretty; }
+  h1 { font-size: 30pt; line-height: 1.12; font-weight: 700; margin: 0 0 6mm; letter-spacing: -.01em; }
+  h2 { font-size: 19pt; line-height: 1.22; font-weight: 650; margin: 0 0 7mm; max-width: 235mm; letter-spacing: -.005em; }
+  h3 { font-size: 11pt; font-weight: 650; margin: 0 0 1.5mm; }
+  p  { margin: 0 0 3mm; }
+  .muted { color: var(--gray); }
+  .small { font-size: 8.5pt; }
+  .foot { position: absolute; left: 20mm; right: 20mm; bottom: 8mm; display: flex; justify-content: space-between;
+          font-size: 7.5pt; color: var(--light); border-top: 0.3mm solid var(--line); padding-top: 2mm; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12mm; }
+  .grid-l { display: grid; grid-template-columns: 1.05fr 1fr; gap: 12mm; align-items: start; }
+  .num { font-size: 30pt; font-weight: 700; line-height: 1; letter-spacing: -.02em; white-space: nowrap; }
+  .num.acc { color: var(--acc); }
+  .num-l { font-size: 9pt; color: var(--gray); margin-top: 1.5mm; }
+  .stat { border-left: 0.8mm solid var(--line); padding-left: 4mm; margin-bottom: 7mm; }
+  .stat.acc { border-left-color: var(--acc); }
+  ul { margin: 0; padding-left: 4.5mm; }
+  li { margin-bottom: 1.6mm; }
+  .card { background: var(--band); border-radius: 2mm; padding: 4.5mm 5mm; }
+  .cards4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5mm; margin-top: 7mm; }
+  .cards4 .card { padding: 6mm 6mm; }
+  .cards4 p { font-size: 11pt; line-height: 1.45; margin: 0; color: #2b3650; }
+  .cards4 h3 { font-size: 13pt; margin-bottom: 2.5mm; }
+  table { border-collapse: collapse; width: 100%; font-size: 9pt; }
+  td, th { text-align: left; padding: 1.6mm 2mm; border-bottom: 0.25mm solid var(--line); vertical-align: top; }
+  th { font-weight: 600; color: var(--gray); font-size: 8pt; text-transform: uppercase; letter-spacing: .06em; }
+  td.r, th.r { text-align: right; }
+  .hl td { font-weight: 650; color: var(--acc); }
+  img.full { width: 100%; display: block; }
+  .contacts { font-size: 11.5pt; line-height: 1.75; }
+  a { color: inherit; text-decoration: none; }
+  .tag { display: inline-block; font-size: 8pt; color: var(--gray); border: 0.25mm solid var(--line); border-radius: 1mm;
+         padding: .4mm 2mm; margin: 0 1.5mm 1.5mm 0; }
+  .check li::marker { color: var(--acc); }
+  .p5 { font-size: 12pt; line-height: 1.42; }
+  .p5 h3 { font-size: 14pt; margin-bottom: 3mm; }
+  .p5 li { margin-bottom: 2.2mm; }
+</style>
+</head>
+<body>
+
+<!-- 1. Cover ------------------------------------------------------------- -->
+<section class="page" id="p1">
+  <div style="display:grid; grid-template-columns: 1fr 68mm; gap: 14mm; margin-top: 12mm; height: 140mm; align-items: center;">
+    <div>
+      <p class="kicker">Portfolio project · process control</p>
+      <h1 style="font-size: 35pt; margin-bottom: 7mm;">Blast-furnace top-pressure<br>control with a top-gas<br>recovery turbine</h1>
+      <p style="font-size: 16pt; line-height: 1.45;" class="muted">
+        A turbine recovers ≈ $p_el MW from blast-furnace gas, yet must be invisible to the furnace.
+        I designed and simulated the control system that keeps top pressure within
+        <b style="color:var(--navy)">$ff_peak mbar</b> when the turbine trips at full load.
+      </p>
+      <div style="margin: 9mm 0 11mm; zoom: 1.08;">
+        <span class="tag">Control narrative</span><span class="tag">P&amp;ID · I/O list · C&amp;E</span>
+        <span class="tag">Simulink physics model</span><span class="tag">Split-range PI · feedforward</span>
+        <span class="tag">IEC 61511 note</span>
+      </div>
+      <div class="contacts">
+        <b style="font-size: 14pt;">$name</b><br>
+        $degree · $role<br>
+        <a href="mailto:$email">$email</a> · <a href="$linkedin_url">$linkedin</a><br>
+        Code and documents: <a href="$github_url"><b>$github</b></a>
+      </div>
+    </div>
+    <div style="border-left: 0.3mm solid var(--line); padding-left: 9mm; padding-top: 4mm; zoom: 1.2;">
+      <div class="stat acc"><div class="num acc">$ff_peak mbar</div><div class="num-l">top-pressure peak at a full-load trip, with feedforward</div></div>
+      <div class="stat"><div class="num">$fb_peak mbar</div><div class="num-l">same trip, feedback only</div></div>
+      <div class="stat"><div class="num">$p_el MW</div><div class="num-l">recovered at design point</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>Independent educational project. All parameters are illustrative and based on public literature.</span><span>1</span></div>
+</section>
+
+<!-- 2. The problem ------------------------------------------------------- -->
+<section class="page" id="p2" style="padding-top: 12mm;">
+  <p class="kicker">The problem</p>
+  <h2 style="margin-bottom: 2.5mm;">The turbine earns money only if the furnace never notices it</h2>
+  <p style="margin:0 0 2mm; font-size: 10.5pt; line-height: 1.45; max-width: 257mm;">Top gas ($q_n Nm³/h, $sp barg) is expanded
+    in the turbine T-101 to recover <b>$p_el MW</b>; bypass valves PV-201A/B in parallel take the gas when it cannot.
+    Top pressure belongs to the furnace and must stay at set point. The hard case is a <b>trip</b>: XV-101 closes in 0.7 s
+    and 104 kg/s must move to the bypass, or pressure climbs ≈ 30 mbar/s toward the 2.2 barg bleeders. Target <b style="color:var(--acc)">≤ 90 mbar</b>.</p>
+  <img src="../docs/pid/trt_pid_drawing.svg" alt="Simplified P&amp;ID" style="display:block; width: 257mm;">
+  <p class="small muted" style="margin: 0;">Simplified P&amp;ID (ISA-5.1), vector: zoom in the PDF. Generated from the single tag list
+  that also produces the I/O list and the cause &amp; effect matrix; legend and notes in <code>docs/pid/</code>.</p>
+  <div class="foot"><span>TRT top-pressure control · $name</span><span>2</span></div>
+</section>
+
+<!-- 4. Control strategy --------------------------------------------------- -->
+<section class="page" id="p3">
+  <p class="kicker">Control strategy</p>
+  <h2>One pressure controller, two actuators, and a feedforward for the event feedback cannot catch</h2>
+  <svg viewBox="0 0 1000 250" width="100%" style="display:block; margin-top: 2mm;" font-family="Inter" font-size="13">
+    <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2a44"/></marker>
+      <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d9822b"/></marker></defs>
+    <g fill="#fff" stroke="#1f2a44" stroke-width="1.6">
+      <rect x="10"  y="95" width="120" height="56" rx="6"/>
+      <rect x="170" y="95" width="120" height="56" rx="6"/>
+      <rect x="330" y="88" width="150" height="70" rx="6"/>
+      <rect x="520" y="88" width="120" height="70" rx="6"/>
+      <rect x="690" y="40" width="150" height="50" rx="6"/>
+      <rect x="690" y="160" width="150" height="50" rx="6"/>
+      <rect x="880" y="100" width="110" height="50" rx="6"/>
+    </g>
+    <g fill="#fff8f0" stroke="#d9822b" stroke-width="1.8"><rect x="470" y="200" width="200" height="44" rx="6"/></g>
+    <g fill="#1f2a44" text-anchor="middle">
+      <text x="70" y="119" font-weight="600">PT-100A/B/C</text><text x="70" y="137" fill="#5a6b85" font-size="11">2oo3 median</text>
+      <text x="230" y="119" font-weight="600">PV filter</text><text x="230" y="137" fill="#5a6b85" font-size="11">1 s, noise</text>
+      <text x="405" y="113" font-weight="600">PIC-100  PI</text><text x="405" y="131" fill="#5a6b85" font-size="11">SIMC tuning</text><text x="405" y="147" fill="#5a6b85" font-size="11">anti-windup, tracking</text>
+      <text x="580" y="117" font-weight="600">Split range</text><text x="580" y="135" fill="#5a6b85" font-size="11">0–50 %: vanes</text><text x="580" y="150" fill="#5a6b85" font-size="11">50–100 %: bypass</text>
+      <text x="765" y="61" font-weight="600">Stator vanes</text><text x="765" y="78" fill="#5a6b85" font-size="11">PY-101 · ZY-101</text>
+      <text x="765" y="181" font-weight="600">Bypass PV-201A/B</text><text x="765" y="198" fill="#5a6b85" font-size="11">PY-201: flow → position</text>
+      <text x="935" y="121" font-weight="600">Gas system</text><text x="935" y="138" fill="#5a6b85" font-size="11">2 volumes</text>
+      <text x="570" y="219" font-weight="600" fill="#d9822b">Trip feedforward</text><text x="570" y="236" fill="#d9822b" font-size="11">Stodola estimate → inverse ISA-75.01</text>
+    </g>
+    <g stroke="#1f2a44" stroke-width="1.6" fill="none" marker-end="url(#a)">
+      <path d="M130,123 H168"/><path d="M290,123 H328"/><path d="M480,123 H518"/>
+      <path d="M640,110 H665 V65 H688"/><path d="M640,136 H665 V185 H688"/>
+      <path d="M840,65 H860 V115 H878"/><path d="M840,185 H860 V135 H878"/>
+      <path d="M935,100 V20 H70 V93"/>
+    </g>
+    <g stroke="#d9822b" stroke-width="1.8" fill="none">
+      <path d="M670,222 H765 V212" marker-end="url(#b)"/>
+      <path d="M470,222 H405 V160" stroke-dasharray="5 4" marker-end="url(#b)"/>
+    </g>
+    <text x="395" y="190" fill="#d9822b" font-size="11" text-anchor="end">output tracking: the PI starts at the FF value</text>
+    <text x="500" y="14" fill="#5a6b85" font-size="11" text-anchor="middle">top pressure measurement</text>
+  </svg>
+  <div class="cards4">
+    <div class="card"><h3>Split range</h3><p>The vanes act first, so all the gas goes through the turbine. The bypass opens only when the vanes saturate. Bypass requests are in <b>flow</b>, so the loop gain is the same on both sides.</p></div>
+    <div class="card"><h3>Anti-windup &amp; bumpless</h3><p>Back-calculation on the position actually reached; external reset during the high-high override. Every mode change re-initialises the PI.</p></div>
+    <div class="card"><h3>Trip feedforward</h3><p>On the trip signal the bypass goes straight to the position that passes the turbine flow just before the trip. The bypass is choked, so a rising pressure adds relief by itself.</p></div>
+    <div class="card"><h3>Tuned from the model</h3><p>SIMC rules on the linearised two-volume plant (84 s and 2.6 s time constants): Kp&nbsp;=&nbsp;$kp&nbsp;%/bar, Ti&nbsp;=&nbsp;$ti&nbsp;s. Gain scheduling for bypass-only operation.</p></div>
+  </div>
+  <div class="foot"><span>TRT top-pressure control · $name</span><span>3</span></div>
+</section>
+
+<!-- 5. Key result ---------------------------------------------------------- -->
+<section class="page" id="p4">
+  <p class="kicker">Key result</p>
+  <h2>At a full-load trip the feedforward holds top pressure within $ff_peak mbar; feedback alone cannot get close</h2>
+  <div style="display:grid; grid-template-columns: 190mm 1fr; gap: 8mm; align-items:start;">
+    <img src="../simulink/results/trip_hero.png" alt="Trip at full load" style="display:block; width: 190mm;">
+    <div style="padding-top: 3mm;">
+      <div class="stat acc"><div class="num acc">$ff_peak mbar</div><div class="num-l">peak with feedforward + output tracking (target 90)</div></div>
+      <div class="stat"><div class="num">$fb_peak mbar</div><div class="num-l">nominal PI, feedback only: reaches the high-high level</div></div>
+      <div class="stat"><div class="num">$tight_peak mbar</div><div class="num-l">tightest recommended PI (SIMC τc&nbsp;=&nbsp;θ) with a light filter</div></div>
+      <p class="muted" style="font-size: 9.5pt;">To reach 90 mbar, feedback alone needs a phase margin of only 20°, and it is still 5× worse.
+      The gas disappears in 0.7 s; the loop sees it only after 2–3.6 s of effective dead time.
+      Robust to actuator speed (7–27 mbar for ESD 0.5–1 s, bypass 1–2 s) and to a ±20 % feedforward error (≈&nbsp;50&nbsp;mbar).</p>
+    </div>
+  </div>
+  <div class="foot"><span>TRT top-pressure control · $name</span><span>4</span></div>
+</section>
+
+<!-- 8. Deliverables, limits, next ------------------------------------------- -->
+<section class="page" id="p5">
+  <p class="kicker">Scope and honesty</p>
+  <h2>What exists today, what the model leaves out, what a real project adds</h2>
+  <div class="p5" style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 11mm; margin-top: 4mm;">
+    <div>
+      <h3>Delivered</h3>
+      <ul class="check">
+        <li>Control narrative in EPC style: modes, loop assignment per mode, sequences, trips</li>
+        <li>P&amp;ID, I/O list (31 points), alarm list and cause &amp; effect, all generated from one tag list</li>
+        <li>Design basis with a sourced, consistent design point</li>
+        <li>Simulink model generated by script; codegen-ready PLC logic</li>
+        <li>Scenarios with KPIs: steps <b>$step_peak&nbsp;mbar</b>, slip <b>$slip_peak&nbsp;mbar</b>, loading <b>$load_peak&nbsp;mbar</b>, trip <b>$ff_peak&nbsp;mbar</b></li>
+        <li>Functional-safety note (IEC 61511, hypothetical SIL)</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Limits of the model</h3>
+      <ul>
+        <li>Illustrative parameters, no plant data</li>
+        <li>Constant turbine efficiency, linear vane characteristic, no stage-by-stage model</li>
+        <li>Isothermal gas, stiff downstream network</li>
+        <li>Simplified loading sequence; synchronisation and the PLC implementation come next</li>
+        <li>No hardware: tests are simulated, not a factory acceptance test</li>
+      </ul>
+    </div>
+    <div>
+      <h3>In a real project I would</h3>
+      <ul>
+        <li>Fit the turbine and valve characteristics to vendor data and step tests</li>
+        <li>Agree the interface and the scope split with the blast-furnace DCS</li>
+        <li>Move overspeed to an API 670 system and SIL-rated functions to a safety PLC</li>
+        <li>Validate the feedforward in commissioning with partial-load trips</li>
+      </ul>
+      <h3 style="margin-top:6mm;">Next in this repository</h3>
+      <ul>
+        <li>IEC 61131-3 Structured Text on OpenPLC, Software-in-the-Loop over Modbus, HMI</li>
+        <li>MPC on a 24 h disturbance profile</li>
+      </ul>
+    </div>
+  </div>
+  <div style="position: absolute; left: 20mm; right: 20mm; bottom: 17mm; border-top: 0.3mm solid var(--line); padding-top: 3.5mm;" class="contacts">
+    <b>$name</b> · $degree · <a href="mailto:$email">$email</a> · <a href="$linkedin_url">$linkedin</a><br>
+    Code and documents: <a href="$github_url"><b>$github</b></a></div>
+  <div class="foot"><span>Independent educational project. All parameters are illustrative and based on public literature.</span><span>5</span></div>
+</section>
+
+</body>
+</html>

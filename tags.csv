@@ -1,0 +1,51 @@
+tag,description,category,io_type,signal,range_min,range_max,unit,alarm_LL,alarm_L,alarm_H,alarm_HH,ce_cause,ce_effect,fail_safe,plc_name,notes
+BF-001,Blast furnace (top section),equipment,,,,,,,,,,,,,,Process boundary: gas source (flow imposed by blast)
+DC-001,Dust catcher,equipment,,,,,,,,,,,,,,Primary dry dedusting
+FLT-001,Bag-filter gas cleaning plant,equipment,,,,,,,,,,,,,,Secondary dry cleaning; dp ~0.2 bar at design flow
+PSV-100A,Furnace top bleeder A,equipment,,,,,,,,,,,,,,Mechanical last-resort protection; set 2.2 barg; not in PLC scope
+PSV-100B,Furnace top bleeder B,equipment,,,,,,,,,,,,,,Mechanical last-resort protection; set 2.2 barg; not in PLC scope
+T-101,Top-gas recovery turbine (axial; variable stator vanes),equipment,,,,,,,,,,,,,,Stodola ellipse law in model
+G-101,Synchronous generator 9 MVA 3000 rpm,equipment,,,,,,,,,,,,,,Direct drive 2-pole 50 Hz
+PT-100A,Furnace top pressure transmitter A,instrument,AI,4-20 mA HART,0,4,barg,1.4,1.6,1.9,2.0,,,,PT_100A,2oo3 voting with B/C
+PT-100B,Furnace top pressure transmitter B,instrument,AI,4-20 mA HART,0,4,barg,1.4,1.6,1.9,2.0,,,,PT_100B,2oo3 voting with A/C
+PT-100C,Furnace top pressure transmitter C,instrument,AI,4-20 mA HART,0,4,barg,1.4,1.6,1.9,2.0,,,,PT_100C,2oo3 voting with A/B
+PY-100V,Top pressure 2oo3 voting (median select),soft,,,0,4,barg,1.4,1.6,1.9,2.0,P1:HH,,,PY_100V,Discrepancy alarm when |PTx - median| > 0.05 bar; degraded voting see C&E
+PIC-100,Top pressure controller,soft,,,0,4,barg,,,,,,,,PIC_100,CV = voted top pressure; MV via PY-100S (split range) or per mode table
+PY-100S,Top pressure split-range function,soft,,,0,100,%,,,,,,,,PY_100S,0-50% -> vanes; 50-100% -> bypass (variant a)
+PIC-201,Bypass pressure controller (variant b),soft,,,0,4,barg,,,,,,,,PIC_201,Set point = PIC-100 SP + offset
+PY-201,Bypass output selector and trip feedforward,soft,,,0,100,%,,,,,,"T1,T2=Step to feedforward position, track 2 s, release to PIC-100;T2=Then freeze output in manual;P1=Output forced to 100 %",,PY_201,Selects split-range / PIC-201 output; at trip steps to FF position (inverse ISA-75.01 at PT-110) with output tracking
+PT-110,Clean-gas header pressure (upstream ESD / bypass),instrument,AI,4-20 mA HART,0,4,barg,,,,,,,,PT_110,Bypass inlet p1 for feedforward
+PT-300,Plant gas network pressure (downstream),instrument,AI,4-20 mA HART,0,0.5,barg,,0.05,0.2,,,,,PT_300,Network assumed stiff in model
+TT-101,Turbine inlet gas temperature,instrument,AI,4-20 mA (RTD head transmitter),0,250,degC,,90,150,170,,,,TT_101,Dry cleaning: nominal 120 degC
+AT-100,Dust concentration at turbine inlet,instrument,AI,4-20 mA,0,50,mg/Nm3,,,5,10,S1:HH,,,AT_100,Start permissive < 5 mg/Nm3
+XV-101,TRT inlet emergency shut-off valve (quick-closing),valve,,,,,,,,,,,,FC,,Closing time 0.7 s (sensitivity 0.5-1.0 s)
+XY-101,XV-101 trip solenoid (de-energise to close),valve,DO,24 VDC,,,,,,,,,"T1,T2=De-energise: XV-101 closes in 0.7 s",De-energised = closed,XY_101,Hardwired to trip relay in a real plant
+ZSO-101,XV-101 open limit switch,instrument,DI,24 VDC,,,,,,,,,,,ZSO_101,
+ZSC-101,XV-101 closed limit switch,instrument,DI,24 VDC,,,,,,,,,,,ZSC_101,
+ZY-101,Stator-vane actuator positioner,valve,AO,4-20 mA HART,0,100,%,,,,,,,Fail-last,ZY_101,Rate limit 5 %/s; quick close 3 s
+XY-102,Stator-vane quick-close solenoid,valve,DO,24 VDC,,,,,,,,,"T1,T2=De-energise: stator vanes close in 3 s",De-energised = close,XY_102,Dumps vane-actuator hydraulic oil: vanes close in 3 s
+ZT-101,Stator-vane position transmitter,instrument,AI,4-20 mA,0,100,%,,,,,,,,ZT_101,
+PV-201A,Bypass / septum control valve A,valve,AO,4-20 mA HART,0,100,%,,,,,,,Fail-last,PV_201A,60% of design flow at full travel; equal-percentage R=30
+PV-201B,Bypass / septum control valve B,valve,AO,4-20 mA HART,0,100,%,,,,,,,Fail-last,PV_201B,60% of design flow at full travel; equal-percentage R=30
+XY-201A,PV-201A fast-opening solenoid,valve,DO,24 VDC,,,,,,,,,P1=De-energise: PV-201A fully open in 1.5 s,,XY_201A,De-energise = valve fully open (top pressure HH). Trip feedforward step uses the positioner fast stroke (1.5 s)
+XY-201B,PV-201B fast-opening solenoid,valve,DO,24 VDC,,,,,,,,,P1=De-energise: PV-201B fully open in 1.5 s,,XY_201B,De-energise = valve fully open (top pressure HH). Trip feedforward step uses the positioner fast stroke (1.5 s)
+ZT-201A,PV-201A position transmitter,instrument,AI,4-20 mA,0,100,%,,,,,,,,ZT_201A,
+ZT-201B,PV-201B position transmitter,instrument,AI,4-20 mA,0,100,%,,,,,,,,ZT_201B,
+ST-101,Turbine speed,instrument,AI,4-20 mA (from speed monitor),0,4000,rpm,,,3150,3300,T1:HH,,,ST_101,HH = 110%; in a real plant on API 670 machinery protection
+SIC-101,Turbine speed controller (run-up / sync),soft,,,0,4000,rpm,,,,,,,,SIC_101,Active only with CB-101 open
+PY-101,Stator-vane output selector,soft,,,0,100,%,,,,,,"T1,T2=Vane output forced to 0 %",,PY_101,SIC-101 with CB-101 open (run-up / sync); PY-100S vane share in loading / running; bumpless via output tracking; trip forces close via XY-102
+VT-101,Turbine shaft vibration (relative pk-pk),instrument,AI,4-20 mA (from vibration monitor),0,200,um,,,80,120,T1:HH,,,VT_101,In a real plant on API 670 machinery protection
+PT-102,Lube oil header pressure,instrument,AI,4-20 mA,0,4,barg,1.0,1.5,,,T1:LL,,,PT_102,
+PDT-103,Seal gas differential pressure (N2 vs process gas),instrument,AI,4-20 mA,0,200,mbar,15,30,,,T1:LL,,,PDT_103,Loss of seal = CO leakage risk
+JT-101,Generator active power,instrument,AI,4-20 mA (from transducer),0,10,MW,,,,,,,,JT_101,
+CB-101,Generator circuit breaker (ANSI 52G),electrical,,,,,,,,,,,,,,
+CB-101-CLS,CB-101 close command,electrical,DO,24 VDC,,,,,,,,,,,CB_101_CLS,Pulse; only with synchro-check OK
+CB-101-TRP,CB-101 trip command,electrical,DO,24 VDC,,,,,,,,,"T1,T2=Trip pulse, sequential (after ZSC-101 and reverse power)",,CB_101_TRP,"Mechanical trips: sequential tripping, CB-101 opens on reverse power after XV-101 closed (avoids overspeed)"
+CB-101-ST,CB-101 closed status,electrical,DI,24 VDC,,,,,,,,,,,CB_101_ST,
+SYN-101,Synchro-check OK (ANSI 25),electrical,DI,24 VDC,,,,,,,,,,,SYN_101,Simplified: |df| and |dphi| below threshold
+GRID-101,Grid available,electrical,DI,24 VDC,,,,,,,,T1:0,,,GRID_101,Start permissive. Loss while CB-101 closed = trip (CB-101 already opened by grid protection)
+GP-101,Generator protection trip (ANSI 86G),electrical,DI,24 VDC,,,,,,,,T1:1,,,GP_101,
+HS-101,TRT emergency stop pushbutton,hmi,DI,24 VDC,,,,,,,,T1:1,,,HS_101,Hardwired in a real plant; also HMI soft ESD
+HS-102,TRT start command,hmi,soft,,,,,,,,,,,,HS_102,HMI
+HS-103,TRT normal stop command,hmi,soft,,,,,,,,,,,,HS_103,HMI
+HS-104,Trip reset,hmi,soft,,,,,,,,,,,,HS_104,HMI; only after all trip causes cleared

@@ -1,0 +1,13 @@
+#,Cause tag,Cause,Group,E01,E02,E03,E04,E05,E06,E07,E08,E09,E10,E11,E12
+C01,ST-101,Turbine speed: high-high (> 3300 rpm),T1,X,X,X,X,X,,,,,X,,X
+C02,VT-101,Turbine shaft vibration (relative pk-pk): high-high (> 120 um),T1,X,X,X,X,X,,,,,X,,X
+C03,PT-102,Lube oil header pressure: low-low (< 1.0 barg),T1,X,X,X,X,X,,,,,X,,X
+C04,PDT-103,Seal gas differential pressure (N2 vs process gas): low-low (< 15 mbar),T1,X,X,X,X,X,,,,,X,,X
+C05,GRID-101,Grid available: lost,T1,X,X,X,(X),X,,,,,X,,X
+C06,GP-101,Generator protection trip (ANSI 86G): active,T1,X,X,X,(X),X,,,,,X,,X
+C07,HS-101,TRT emergency stop pushbutton: active,T1,X,X,X,X,X,,,,,X,,X
+C08,PY-100V,No healthy transmitter left,T2,X,X,X,X,X,X,,,,X,,X
+C09,PY-100V,Top pressure 2oo3 voting (median select): high-high (> 2.0 barg),P1,,,,,,,X,X,X,,,X
+C10,AT-100,Dust concentration at turbine inlet: high-high (> 10 mg/Nm3),S1,,,,,,,,,,,X,X
+C11,PY-100V,Only one healthy transmitter left,S1,,,,,,,,,,,X,X
+C12,PY-100V,One transmitter deviates > 0.05 bar from median (2 healthy left: average),A,,,,,,,,,,,,X

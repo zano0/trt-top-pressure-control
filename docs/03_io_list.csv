@@ -1,0 +1,32 @@
+Tag,Description,I/O type,Signal,Range min,Range max,Unit,Raw counts,LL,L,H,HH,Fail-safe,C&E,PLC variable,Module,Channel,Modbus (OpenPLC),Notes
+AT-100,Dust concentration at turbine inlet,AI,4-20 mA,0,50,mg/Nm3,0-27648,,,5,10,,yes,AT_100,AI01,0,%IW0,Start permissive < 5 mg/Nm3
+JT-101,Generator active power,AI,4-20 mA (from transducer),0,10,MW,0-27648,,,,,,,JT_101,AI01,1,%IW1,
+PDT-103,Seal gas differential pressure (N2 vs process gas),AI,4-20 mA,0,200,mbar,0-27648,15,30,,,,yes,PDT_103,AI01,2,%IW2,Loss of seal = CO leakage risk
+PT-100A,Furnace top pressure transmitter A,AI,4-20 mA HART,0,4,barg,0-27648,1.4,1.6,1.9,2.0,,,PT_100A,AI01,3,%IW3,2oo3 voting with B/C
+PT-100B,Furnace top pressure transmitter B,AI,4-20 mA HART,0,4,barg,0-27648,1.4,1.6,1.9,2.0,,,PT_100B,AI01,4,%IW4,2oo3 voting with A/C
+PT-100C,Furnace top pressure transmitter C,AI,4-20 mA HART,0,4,barg,0-27648,1.4,1.6,1.9,2.0,,,PT_100C,AI01,5,%IW5,2oo3 voting with A/B
+PT-102,Lube oil header pressure,AI,4-20 mA,0,4,barg,0-27648,1.0,1.5,,,,yes,PT_102,AI01,6,%IW6,
+PT-110,Clean-gas header pressure (upstream ESD / bypass),AI,4-20 mA HART,0,4,barg,0-27648,,,,,,,PT_110,AI01,7,%IW7,Bypass inlet p1 for feedforward
+PT-300,Plant gas network pressure (downstream),AI,4-20 mA HART,0,0.5,barg,0-27648,,0.05,0.2,,,,PT_300,AI02,0,%IW8,Network assumed stiff in model
+ST-101,Turbine speed,AI,4-20 mA (from speed monitor),0,4000,rpm,0-27648,,,3150,3300,,yes,ST_101,AI02,1,%IW9,HH = 110%; in a real plant on API 670 machinery protection
+TT-101,Turbine inlet gas temperature,AI,4-20 mA (RTD head transmitter),0,250,degC,0-27648,,90,150,170,,,TT_101,AI02,2,%IW10,Dry cleaning: nominal 120 degC
+VT-101,Turbine shaft vibration (relative pk-pk),AI,4-20 mA (from vibration monitor),0,200,um,0-27648,,,80,120,,yes,VT_101,AI02,3,%IW11,In a real plant on API 670 machinery protection
+ZT-101,Stator-vane position transmitter,AI,4-20 mA,0,100,%,0-27648,,,,,,,ZT_101,AI02,4,%IW12,
+ZT-201A,PV-201A position transmitter,AI,4-20 mA,0,100,%,0-27648,,,,,,,ZT_201A,AI02,5,%IW13,
+ZT-201B,PV-201B position transmitter,AI,4-20 mA,0,100,%,0-27648,,,,,,,ZT_201B,AI02,6,%IW14,
+PV-201A,Bypass / septum control valve A,AO,4-20 mA HART,0,100,%,0-27648,,,,,Fail-last,,PV_201A,AO01,0,%QW0,60% of design flow at full travel; equal-percentage R=30
+PV-201B,Bypass / septum control valve B,AO,4-20 mA HART,0,100,%,0-27648,,,,,Fail-last,,PV_201B,AO01,1,%QW1,60% of design flow at full travel; equal-percentage R=30
+ZY-101,Stator-vane actuator positioner,AO,4-20 mA HART,0,100,%,0-27648,,,,,Fail-last,,ZY_101,AO01,2,%QW2,Rate limit 5 %/s; quick close 3 s
+CB-101-ST,CB-101 closed status,DI,24 VDC,,,,,,,,,,,CB_101_ST,DI01,0,%IX0.0,
+GP-101,Generator protection trip (ANSI 86G),DI,24 VDC,,,,,,,,,,yes,GP_101,DI01,1,%IX0.1,
+GRID-101,Grid available,DI,24 VDC,,,,,,,,,,yes,GRID_101,DI01,2,%IX0.2,Start permissive. Loss while CB-101 closed = trip (CB-101 already opened by grid protection)
+HS-101,TRT emergency stop pushbutton,DI,24 VDC,,,,,,,,,,yes,HS_101,DI01,3,%IX0.3,Hardwired in a real plant; also HMI soft ESD
+SYN-101,Synchro-check OK (ANSI 25),DI,24 VDC,,,,,,,,,,,SYN_101,DI01,4,%IX0.4,Simplified: |df| and |dphi| below threshold
+ZSC-101,XV-101 closed limit switch,DI,24 VDC,,,,,,,,,,,ZSC_101,DI01,5,%IX0.5,
+ZSO-101,XV-101 open limit switch,DI,24 VDC,,,,,,,,,,,ZSO_101,DI01,6,%IX0.6,
+CB-101-CLS,CB-101 close command,DO,24 VDC,,,,,,,,,,,CB_101_CLS,DO01,0,%QX0.0,Pulse; only with synchro-check OK
+CB-101-TRP,CB-101 trip command,DO,24 VDC,,,,,,,,,,yes,CB_101_TRP,DO01,1,%QX0.1,"Mechanical trips: sequential tripping, CB-101 opens on reverse power after XV-101 closed (avoids overspeed)"
+XY-101,XV-101 trip solenoid (de-energise to close),DO,24 VDC,,,,,,,,,De-energised = closed,yes,XY_101,DO01,2,%QX0.2,Hardwired to trip relay in a real plant
+XY-102,Stator-vane quick-close solenoid,DO,24 VDC,,,,,,,,,De-energised = close,yes,XY_102,DO01,3,%QX0.3,Dumps vane-actuator hydraulic oil: vanes close in 3 s
+XY-201A,PV-201A fast-opening solenoid,DO,24 VDC,,,,,,,,,,yes,XY_201A,DO01,4,%QX0.4,De-energise = valve fully open (top pressure HH). Trip feedforward step uses the positioner fast stroke (1.5 s)
+XY-201B,PV-201B fast-opening solenoid,DO,24 VDC,,,,,,,,,,yes,XY_201B,DO01,5,%QX0.5,De-energise = valve fully open (top pressure HH). Trip feedforward step uses the positioner fast stroke (1.5 s)
